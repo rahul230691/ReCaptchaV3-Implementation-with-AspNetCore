@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Privacy - reCAPTCHA v3 DEMO";
+}
+
+<div class="text-center">
+    <p id="captchaResp"></p>
+</div>
+
+@section Scripts{
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('[put-site-key-here]', { action: 'privacy' })
+                .then(function (token) {
+                    $.getJSON("/Home/VerifyCaptcha?token=" + token, function (data) {
+                        $('#captchaResp').text(JSON.stringify(data));
+                    });
+                });
+        });
+    </script>
+}
